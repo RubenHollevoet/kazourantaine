@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kazourantaine</title>
+    <link href="https://fonts.googleapis.com/css?family=Fjalla+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/virus.css?v=2">
+    <link rel="stylesheet" href="css/medals.css">
+    <style>
+        * {
+            color: white;
+            font-family: 'Fjalla One', sans-serif;
+            font-size: 1.3rem;
+        }
+
+        #members tr td:first-child {
+            display: flex;
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: 3rem;
+            text-align: center;
+            margin-top: 67px;
+            text-shadow: 2px 2px 2px #333;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        h3 {
+            text-align: center;
+            font-size: 1.5rem;
+        }
+
+        h3 > span {
+            font-size: 1.8rem;
+        }
+
+        h2 > span {
+            padding: 1rem;
+            background-color: #34485e;
+            font-size: 2rem;
+        }
+
+        h2:after {
+            border-top: 1.5px solid rgba(255,255,255,0.45);
+            content:"";
+            margin: 0 auto; /* this centers the line to the full width specified */
+            position: absolute; /* positioning must be absolute here, and relative positioning must be applied to the parent */
+            top: 50%; left: 0; right: 0; bottom: 0;
+            width: 95%;
+            z-index: -1;
+        }
+
+        @media only screen and (max-width: 1200px) {
+            * {
+                font-size: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .virus-icon {
+                width: 60px !important;
+                height: 60px !important;
+                background-size: 60px !important;
+            }
+
+            .container {
+                border-radius: 0 !important;
+
+                width: 100% !important;
+                height: 100% !important;
+
+                margin: 0 !important;
+            }
+
+            th {
+                font-size: 1.5rem;
+            }
+        }
+
+
+        html {
+            height: auto;
+        }
+
+        body {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+        }
+
+        .container {
+            border-radius: 20px;
+
+            display: flex;
+            width: 80%;
+            height: 80%;
+            max-width: 600px;
+            flex-direction: column;
+            background-color: #34495e;
+
+            margin: 48px;
+        }
+
+        .banner {
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+
+            background: url(img/banner.jpg);
+            background-repeat: no-repeat;
+            background-size: auto;
+            background-position: center;
+
+            height: 180px;
+        }
+
+        .virus-icon {
+            background: url(img/bacteria.svg);
+            background-repeat: no-repeat;
+            background-position: center;
+
+            width: 120px;
+            height: 120px;
+
+            background-size: 120px;
+        }
+
+
+        .special-list {
+            padding-left: 0;
+        }
+
+        .special-list > li {
+            list-style: none;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+
+        .name {
+            cursor: pointer;
+        }
+
+        tr.selected > td {
+            color: #f47171;
+        }
+
+        tr.marked {
+            background-color: #455f7d;
+        }
+
+        .participant-region {
+            display: flex;
+            flex-direction: column;
+            padding: 0 2rem 2rem 2rem;
+        }
+
+        .participant-region > div {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 2.5%;
+            font-size: 0.8rem;
+        }
+
+        /*Responsive table*/
+        table {
+            width: 100%;
+            max-width: 600px;
+            border-collapse: collapse;
+        }
+ 
+        td, th {
+           padding: 8px;
+            text-align: left;
+        }
+
+        svg{
+  width: 100px;
+  height: 100px;
+  margin: 20px;
+  display:inline-block;
+}
+
+        .loader-container {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- <div class="snow-container">
+        <i class="virus-icon"></i>
+        <i class="virus-icon"></i>
+        <i class="virus-icon"></i>
+        <i class="virus-icon"></i>
+        <i class="virus-icon"></i>
+        <i class="virus-icon"></i>
+        <i class="virus-icon"></i>
+        <i class="virus-icon"></i>
+      </div> -->
+
+    <div class="container">
+        <div class="banner">
+            <h1>Kazourantaine 2020</h1>
+        </div>
+
+        <div class="js-loader loader-container"><svg version="1.1" id="L5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+            viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
+            <circle fill="#fff" stroke="none" cx="6" cy="50" r="6">
+              <animateTransform 
+                 attributeName="transform" 
+                 dur="1s" 
+                 type="translate" 
+                 values="0 15 ; 0 -15; 0 15" 
+                 rep if(document.querySelector('.name.selected')) {
+                    document.querySelector('.name.selected').classList.remove('selected');
+                }in="0.1"/>
+            </circle>
+            <circle fill="#fff" stroke="none" cx="30" cy="50" r="6">
+              <animateTransform 
+                 attributeName="transform" 
+                 dur="1s" 
+                 type="translate" 
+                 values="0 10 ; 0 -10; 0 10" 
+                 repeatCount="indefinite" 
+                 begin="0.2"/>
+            </circle>
+            <circle fill="#fff" stroke="none" cx="54" cy="50" r="6">
+              <animateTransform 
+                 attributeName="transform" 
+                 dur="1s" 
+                 type="translate" 
+                 values="0 5 ; 0 -5; 0 5" 
+                 repeatCount="indefinite" 
+                 begin="0.3"/>
+            </circle>
+          </svg>
+          </svg>
+        </div>
+
+        <h3>Aantal deelnames: <span class="js-participation-count"></span></h3>
+
+        <h2 style="margin: 0"><span>Volgende 3 specials</span></h2>
+        <ul class="special-list js-special-list"></ul>
+
+        <h2><span>Ranking</span></h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>#</th>
+                    <th>Naam</th>
+                    <th>Score</th>
+                    <th>Regio</th>
+                </tr>
+            </thead>
+            <tbody id="members">
+            </tbody>
+        </table>
+
+        <h2><span>Deelnemers / verbond</span></h2>
+        <div class="participant-region js-participant-region"></div>
+    </div>
+    
+</body>
+<script>
+    let url = 'https://script.google.com/macros/s/{script_code}/exec';
+
+    regions = {
+        '': '',
+        'Regio Mechelen-Turnhout': 'RMT',
+        'Antwerpen': 'Antw',
+        'Brugge': 'Brugge',
+        'Leuven': 'Leuven',
+        'Limburg': 'Limburg',
+        'MVL - Aalst': 'Aalst',
+        'MVL - Gent': 'Gent',
+        'MVL - Leie en Schelde': 'LES',
+        'MVL - Meetjesland': 'Meetjes',
+        'MVL - Vlaamse Ardennen': 'VLA',
+        'Oostende': 'Oostende',
+        'Roeselare-Tielt': 'RoeTie',
+        'Sint-Michielsbond': 'SMB',
+        'Waas en Dender': 'W&D',
+        'West-Vlaanderen': 'WVL',
+        'Zuid-West-Vlaanderen': 'ZWVL'
+    };
+
+    regionScores = [];
+    for (var long in regions){
+        if(long) {
+            regionScores[regions[long]] = 0;
+        }
+    }
+
+    fetch(url)
+    .then(res => res.json())
+    .then((data) => {
+        //participant count
+        document.querySelector('.js-participation-count').textContent = data.count;
+
+        //specials
+        const list = document.querySelector('.js-special-list');
+        data.specials.forEach(special => {
+            let date = new Date(special);
+            const li = document.createElement('li');
+            li.textContent = formatDate(date);
+            list.appendChild(li);
+        });
+
+        //ranking
+        const members = data.users;
+        members.sort((a, b) => (a.name < b.name) ? 1 : -1);
+        members.sort((a, b) => (a.score < b.score) ? 1 : -1);
+
+        let markTr = false;
+        let position = 0;
+        let lastPosition = 1;
+        let lastScore = -1;
+        tbody = document.getElementById('members');
+        members.forEach(member => {
+
+            td_medal = document.createElement('td');
+            switch (position) {
+                case 0:
+                    td_medal.innerHTML = '<div class="quiz-medal"><div class="quiz-medal__circle quiz-medal__circle--gold"><span>1</span></div><div class="quiz-medal__ribbon quiz-medal__ribbon--left"></div><div class="quiz-medal__ribbon quiz-medal__ribbon--right"></div></div>';
+                   break;
+                case 1:
+                    td_medal.innerHTML = '<div class="quiz-medal"><div class="quiz-medal__circle quiz-medal__circle--silver"><span>2</span></div><div class="quiz-medal__ribbon quiz-medal__ribbon--left"></div><div class="quiz-medal__ribbon quiz-medal__ribbon--right"></div></div>';
+                    break;
+                case 2:
+                    td_medal.innerHTML = '<div class="quiz-medal"><div class="quiz-medal__circle quiz-medal__circle--bronze"><span>3</span></div><div class="quiz-medal__ribbon quiz-medal__ribbon--left"></div><div class="quiz-medal__ribbon quiz-medal__ribbon--right"></div></div>';
+                    break;
+                default:
+                    td_medal.innerHTML = '';
+                    break;
+            }
+
+            td_place = document.createElement('td');
+            position++;
+
+            if(lastScore !== member.score) {
+                lastPosition = position;
+                markTr = !markTr;
+            }
+            td_place.innerHTML = lastPosition;
+            
+            lastScore = member.score;
+
+            td_name = document.createElement('td');
+            td_name.innerHTML = member.name;
+            td_name.classList.add('name');
+            td_name.addEventListener('click', function(e) {
+                localStorage.setItem('name', e.currentTarget.textContent);
+
+                if(document.querySelector('.selected')) {
+                    document.querySelector('.selected').classList.remove('selected');
+                }
+
+                e.currentTarget.parentElement.classList.add('selected');
+            });
+
+            td_score = document.createElement('td');
+            td_score.innerHTML = member.score;
+
+            td_region = document.createElement('td');
+            td_region.innerHTML = regions[member.region];
+            regionScores[regions[member.region]]++;
+
+
+            tr = document.createElement('tr');
+            tr.appendChild(td_medal);
+            tr.appendChild(td_place);
+            tr.appendChild(td_name);
+            tr.appendChild(td_score);
+            tr.appendChild(td_region);
+
+            //background color
+            if(markTr) {
+                tr.classList.add('marked');
+            }
+
+            //mark from local storage
+            const saveName = localStorage.getItem('name');
+            if(saveName === member.name) {
+                tr.classList.add('selected');
+            }
+            
+            tbody.appendChild(tr);
+        });
+
+        document.querySelector('.js-loader').remove();
+
+        //loop over region counters
+        const regionContainer = document.querySelector('.js-participant-region');
+        
+        for (var long in regions){
+            if(long) {
+                const region = document.createElement('div');
+                let shorten = '';
+                if(regions[long] !== long) {
+                    shorten = ' (' + regions[long] + ')';
+                }
+                region.innerHTML = '<span>' + long + shorten + '</span><span>' + regionScores[regions[long]] + '</span>';
+
+                regionContainer.appendChild(region);
+            }
+        }
+
+    })
+    .catch(err => { throw err });
+
+function formatDate(date) {
+    var year = date.getFullYear(),
+        month = date.getMonth() + 1, // months are zero indexed
+        day = date.getDate(),
+        hour = date.getHours(),
+        minute = date.getMinutes(),
+        second = date.getSeconds(),
+        minuteFormatted = minute < 10 ? "0" + minute : minute;
+
+        //switch date.getDay();
+
+
+    return date.toLocaleString('nl-be', {  weekday: 'long' }) + ' ' + day + " april   " + hour + ":" +
+            minuteFormatted;
+}
+
+</script>
+</html>
